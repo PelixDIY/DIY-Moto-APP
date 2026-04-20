@@ -11,8 +11,16 @@ export class FirebaseService implements OnModuleInit {
   onModuleInit() {
     const serviceAccountPath = this.configService.get<string>('FIREBASE_SERVICE_ACCOUNT_PATH');
     
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const serviceAccount = serviceAccountPath ? require(`../../${serviceAccountPath}`) : undefined;
+    let serviceAccount;
+    if (serviceAccountPath) {
+      if (serviceAccountPath.startsWith('/')) {
+        // Absolute path (e.g., Render secrets /etc/secrets/...)
+        serviceAccount = require(serviceAccountPath);
+      } else {
+        // Relative path (local development)
+        serviceAccount = require(`../../${serviceAccountPath}`);
+      }
+    }
 
     this.app = admin.apps.length === 0 ? admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
