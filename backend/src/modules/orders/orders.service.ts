@@ -73,8 +73,6 @@ export class OrdersService {
     // Post-transition triggers
     if (newStatus === OrderStatus.COMPLETED) {
       await this.notificationsService.notifyOrderCompleted(id, updatedOrder.client_id);
-    } else if (newStatus === OrderStatus.PAID) {
-      await this.salesService.recordSale(id, updatedOrder.total_amount, updatedOrder.margin);
     }
 
     return updatedOrder;

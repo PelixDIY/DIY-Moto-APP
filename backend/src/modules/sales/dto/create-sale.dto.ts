@@ -4,11 +4,17 @@ export class CreateSaleDto {
   @IsArray()
   items: any[];
 
+  @IsOptional()
   @IsNumber()
-  total_amount: number;
+  total_amount?: number;
 
+  @IsOptional()
+  @IsNumber()
+  total?: number;
+
+  @IsOptional()
   @IsString()
-  payment_method: string;
+  payment_method?: string;
 
   @IsOptional()
   @IsString()
@@ -17,6 +23,18 @@ export class CreateSaleDto {
   @IsOptional()
   @IsString()
   customer?: string;
+
+  @IsOptional()
+  @IsString()
+  customerName?: string;
+
+  @IsOptional()
+  @IsString()
+  type?: string;
+
+  @IsOptional()
+  @IsString()
+  orderNumber?: string;
   
   @IsOptional()
   @IsObject()
